@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="new_thread">New Thread</string>
+    <string name="add_a_thread">add a thread</string>
+    <string name="task_title">Enter the Task title</string>
+</resources>
