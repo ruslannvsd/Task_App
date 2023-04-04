@@ -15,6 +15,7 @@ import com.example.tasks.R;
 import com.example.tasks.data.ProjVM;
 import com.example.tasks.data.thread.Thd;
 import com.example.tasks.databinding.RvThreadBinding;
+import com.example.tasks.interfaces.OnTaskPosChange;
 import com.example.tasks.interfaces.OnThdAction;
 import com.example.tasks.interfaces.OnThdPosChange;
 import com.example.tasks.menus.ThdMenu;
@@ -30,6 +31,7 @@ public class ThreadAd extends RecyclerView.Adapter<ThreadAd.ThreadVH> {
     OnThdAction thdRename;
     OnThdPosChange thdDelete;
     OnThdAction settingTasks;
+    OnTaskPosChange taskPosChange;
 
     public static class ThreadVH extends RecyclerView.ViewHolder {
         private final RvThreadBinding bnd;
@@ -63,7 +65,7 @@ public class ThreadAd extends RecyclerView.Adapter<ThreadAd.ThreadVH> {
                 notifyItemChanged(oldSelected);
                 notifyItemChanged(newSelected);
             } else {
-                new ThdMenu().thdMenu(ctx, thread, projVM, card, thdRename, thdDelete, newSelected);
+                new ThdMenu().thdMenu(ctx, thread, projVM, card, thdRename, thdDelete, taskPosChange, newSelected);
             }
         });
     }
@@ -71,13 +73,22 @@ public class ThreadAd extends RecyclerView.Adapter<ThreadAd.ThreadVH> {
     @Override
     public int getItemCount() { return threads.size(); }
 
-    public void setThreads(List<Thd> threads, Context ctx, ProjVM projVM, OnThdAction thdRename, OnThdPosChange thdDelete, OnThdAction settingTasks) {
+    public void setThreads(
+            List<Thd> threads,
+            Context ctx,
+            ProjVM projVM,
+            OnThdAction thdRename,
+            OnThdPosChange thdDelete,
+            OnThdAction settingTasks,
+            OnTaskPosChange taskPosChange
+    ) {
         this.threads = threads;
         this.ctx = ctx;
         this.projVM = projVM;
         this.thdRename = thdRename;
         this.thdDelete = thdDelete;
         this.settingTasks = settingTasks;
+        this.taskPosChange = taskPosChange;
         notifyChange();
     }
     @SuppressLint("NotifyDataSetChanged")

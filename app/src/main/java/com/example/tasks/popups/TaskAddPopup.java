@@ -16,9 +16,10 @@ import com.example.tasks.R;
 import com.example.tasks.data.ProjVM;
 import com.example.tasks.data.task.Tsk;
 import com.example.tasks.databinding.TaskAddPopupBinding;
+import com.example.tasks.interfaces.OnTaskPosChange;
 
 public class TaskAddPopup {
-    public void taskAddPopup(Context ctx, int thread, ProjVM projVM) {
+    public void taskAddPopup(Context ctx, int thread, ProjVM projVM, OnTaskPosChange taskPosChange) {
         LayoutInflater inflater =
                 (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.task_add_popup, new LinearLayout(ctx), false);
@@ -36,7 +37,7 @@ public class TaskAddPopup {
             String title = taskEt.getText().toString();
             if (!title.matches("") && i == KeyEvent.KEYCODE_ENTER) {
                 Tsk task = new Tsk(0, title, null, true, thread);
-                projVM.insTask(task);
+                taskPosChange.onTaskPosChange(task);
                 window.dismiss();
             }
             return true;

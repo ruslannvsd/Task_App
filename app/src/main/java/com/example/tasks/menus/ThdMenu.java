@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import com.example.tasks.R;
 import com.example.tasks.data.ProjVM;
 import com.example.tasks.data.thread.Thd;
+import com.example.tasks.interfaces.OnTaskPosChange;
 import com.example.tasks.interfaces.OnThdAction;
 import com.example.tasks.interfaces.OnThdPosChange;
 import com.example.tasks.popups.TaskAddPopup;
@@ -22,13 +23,14 @@ public class ThdMenu {
             CardView card,
             OnThdAction thdRename,
             OnThdPosChange deleteThread,
+            OnTaskPosChange taskPosChange,
             int position
     ) {
         PopupMenu popupMenu = new PopupMenu(ctx, card);
         popupMenu.getMenuInflater().inflate(R.menu.thread_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.add) {
-                new TaskAddPopup().taskAddPopup(ctx, thread.id, projVM);
+                new TaskAddPopup().taskAddPopup(ctx, thread.id, projVM, taskPosChange);
                 return true;
             }
             if (item.getItemId() == R.id.rename) {

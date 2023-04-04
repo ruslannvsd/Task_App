@@ -20,6 +20,7 @@ import com.example.tasks.data.ProjVM;
 import com.example.tasks.data.task.Tsk;
 import com.example.tasks.data.thread.Thd;
 import com.example.tasks.databinding.FragmentMainBinding;
+import com.example.tasks.interfaces.OnTaskPosChange;
 import com.example.tasks.popups.ThdAddPopup;
 import com.example.tasks.utils.Cons;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -74,7 +75,10 @@ public class MainFragment extends Fragment {
     }
 
     void setThreads(List<Thd> threads) {
-        threadAd.setThreads(threads, ctx, projVM, this::renamingThd, this::deletingThd, this::setThreadTasks);
+        threadAd.setThreads(threads, ctx, projVM, this::renamingThd, this::deletingThd, this::setThreadTasks, task -> {
+            projVM.insTask(task);
+            projVM.getThdTasks(task.getThread()).observe(owner, this::setTasks);
+        });
         threadRv.setAdapter(threadAd);
         threadRv.setLayoutManager(new FlexboxLayoutManager(ctx));
     } // all threads
