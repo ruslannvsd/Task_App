@@ -32,7 +32,9 @@ public class ProjVM extends AndroidViewModel {
     public LiveData<List<Thd>> getThreads() { return threads; }
     public LiveData<List<Tsk>> getTasks() { return tasks; }
     public LiveData<List<Tsk>> getThdTasks(int thread) { return projRep.getThreadTasks(thread); }
-    public LiveData<List<Alm>> getTaskAlarms(int task) { return projRep.getTaskAlarms(task);}
+    public LiveData<List<Alm>> getTaskAlarms(int task) { return projRep.getTaskAlarms(task); }
+    public LiveData<List<Alm>> getThdAlarms(int thread) { return projRep.getThdAlarms(thread); }
+    public LiveData<Alm> getMinAlarm(int task) { return projRep.getMinAlarm(task); }
     public LiveData<List<Tg>> getTags() { return tags; }
 
     // IUD thread fun

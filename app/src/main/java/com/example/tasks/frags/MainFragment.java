@@ -9,18 +9,21 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.tasks.adaps.AlarmAd;
 import com.example.tasks.adaps.TaskAd;
 import com.example.tasks.adaps.ThreadAd;
+import com.example.tasks.alarm.AlarmSrv;
 import com.example.tasks.data.ProjVM;
+import com.example.tasks.data.alarm.Alm;
 import com.example.tasks.data.task.Tsk;
 import com.example.tasks.data.thread.Thd;
 import com.example.tasks.databinding.FragmentMainBinding;
-import com.example.tasks.interfaces.OnTaskPosChange;
 import com.example.tasks.popups.ThdAddPopup;
 import com.example.tasks.utils.Cons;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -102,6 +105,17 @@ public class MainFragment extends Fragment {
     void deletingThd(Thd thread, int pos) {
         projVM.delThd(thread);
         threadAd.notifyItemRemoved(pos);
+        projVM.getThdTasks(thread.id).observe(owner, tasks -> {
+            for (Tsk task : tasks) {
+                projVM.getTaskAlarms(task.getId()).observe(owner, alarms -> {
+                    AlarmSrv alarmSrv = new AlarmSrv(ctx);
+                    for (Alm alarm : alarms) {
+                        alarmSrv.cancelAlarm(task, alarm);
+                    }
+                });
+            }
+            Toast.makeText(ctx, "All alarms are canceled", Toast.LENGTH_SHORT).show();
+        });
         allTasksSet();
     }
 

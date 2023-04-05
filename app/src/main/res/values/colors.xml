@@ -21,4 +21,15 @@
     <color name="gray_3">#7c7c7c</color>
     <color name="gray_4">#a5a5a5</color>
     <color name="gray_5">#d0d0d0</color>
+
+    <color name="card_1">#331e1e</color>
+    <color name="card_2">#35201a</color>
+    <color name="card_3">#342417</color>
+    <color name="card_4">#322715</color>
+    <color name="card_5">#2e2b15</color>
+    <color name="card_6">#282f18</color>
+    <color name="card_7">#20331e</color>
+    <color name="card_8">#131E13</color>
+    <color name="no_alarm">#151515</color>
+
 </resources>

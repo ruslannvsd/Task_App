@@ -20,13 +20,16 @@ public interface TaskDao {
     @Delete
     void delTask(Tsk task);
 
-    @Query("select * from task_t")
+    @Query("select task_t.*, MIN(alarm_t.al_time) as min_alarm_time " +
+            "from task_t left join alarm_t on task_t.tsk_id = alarm_t.al_task " +
+            "group by task_t.tsk_id " +
+            "order by min_alarm_time asc")
     LiveData<List<Tsk>> getAllTasks();
 
-    @Query("SELECT t.tsk_id, t.tsk_title, t.tsk_note, t.tsk_sts, t.tsk_thd, MIN(a.al_time) AS min_alarm_time " +
-            "FROM task_t t LEFT JOIN alarm_t a ON t.tsk_id = a.al_task " +
+    @Query("select t.tsk_id, t.tsk_title, t.tsk_note, t.tsk_sts, t.tsk_thd, MIN(a.al_time) as min_alarm_time " +
+            "from task_t t left join alarm_t a on t.tsk_id = a.al_task " +
             "where t.tsk_thd = :taskThd " +
-            "GROUP BY t.tsk_id " +
-            "ORDER BY min_alarm_time ASC")
+            "group by t.tsk_id " +
+            "order by min_alarm_time asc")
     LiveData<List<Tsk>> getThreadTask(int taskThd);
 }

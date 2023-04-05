@@ -39,6 +39,7 @@ public class ThdMenu {
             }
             if (item.getItemId() == R.id.delete) {
                 deleteThread.onThdPosChange(thread, position);
+
                 return true;
             }
             return false;

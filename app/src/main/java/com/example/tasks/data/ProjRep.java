@@ -39,6 +39,8 @@ public class ProjRep {
     LiveData<List<Tg>> getAllTags() { return tagDao.getTags(); }
     LiveData<List<Tsk>> getThreadTasks(int thread) { return taskDao.getThreadTask(thread); }
     LiveData<List<Alm>> getTaskAlarms(int task) { return alarmDao.getTaskAlarms(task); }
+    LiveData<List<Alm>> getThdAlarms(int thread) { return alarmDao.getThdAlarms(thread); }
+    LiveData<Alm> getMinAlarm(int task) { return alarmDao.getMinAlarm(task); }
 
     // thread IUD fun
     void insThd(Thd thread) { threadDao.insThd(thread); }
