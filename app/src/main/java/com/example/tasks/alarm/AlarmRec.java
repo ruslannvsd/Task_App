@@ -25,7 +25,7 @@ public class AlarmRec extends BroadcastReceiver {
             String timeStr = intent.getStringExtra(Cons.TIME_STR);
             nMng = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
             channel();
-            int reqCode = id + 666;
+            int reqCode = id + 777;
             Intent launchIntent = new Intent(ctx, MainActivity.class);
             PendingIntent pendInt
                     = PendingIntent.getActivity(ctx, reqCode, launchIntent, PendingIntent.FLAG_IMMUTABLE);
